@@ -3,14 +3,11 @@ package com.fangzhang.czbaidumap;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 
 /**
@@ -34,11 +31,10 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_base);
         //获取地图控件引用
         mMapView = findViewById(R.id.bmapView);
         mapController = mMapView.getMap();
-//    6.获取地图Ui控制器：隐藏指南针
 //      1.隐藏缩放按钮、比例尺(默认显示缩放按钮、比例尺)
 //        mMapView.showScaleControl(false);
 //        mMapView.showScaleControl(false);
@@ -53,8 +49,8 @@ public abstract class BaseActivity extends Activity {
         mapStatusUpdate = MapStatusUpdateFactory.zoomTo(15);
         mapController.setMapStatus(mapStatusUpdate);
 //      6.获取地图Ui控制器：隐藏指南针
-        UiSettings uiSettings = mapController.getUiSettings();
-        uiSettings.setCompassEnabled(false);
+//        UiSettings uiSettings = mapController.getUiSettings();
+//        uiSettings.setCompassEnabled(false);
         init();
     }
 
@@ -77,16 +73,5 @@ public abstract class BaseActivity extends Activity {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
-    }
-
-    /**
-     * 在屏幕中央显示一个Toast
-     * @param text 要显示的内容
-     */
-    public void showToast(CharSequence text) {
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-        // 设置toast显示在屏幕中间
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
     }
 }

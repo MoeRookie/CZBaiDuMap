@@ -4,54 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.model.LatLng;
 
-public class MainActivity extends BaseActivity {
-    private static final String TAG = "MainActivity";
-    private BroadcastReceiver receiver;
+public class HelloBaiDuMapActivity extends BaseActivity {
+    private static final String TAG = "HelloBaiDuMapActivity";
 
     @Override
     protected void init() {
-        // 注册SDK的广播接收者监听
-        registerSDKCheckReceiver();
-    }
-
-    private void registerSDKCheckReceiver() {
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if (SDKInitializer.SDK_BROADCAST_ACTION_STRING_NETWORK_ERROR.equals(action)) {
-                    showToast("网络错误");
-                } else if (SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR.equals(action)) {
-                    showToast("key验证失败");
-                }
-            }
-        };
-        IntentFilter filter = new IntentFilter();
-        // 监听网络错误
-        filter.addAction(SDKInitializer.SDK_BROADCAST_ACTION_STRING_NETWORK_ERROR);
-        // 监听百度地图sdk的key是否正确
-        filter.addAction(SDKInitializer.SDK_BROADTCAST_ACTION_STRING_PERMISSION_CHECK_ERROR);
-        registerReceiver(receiver, filter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
     }
 
     @Override
