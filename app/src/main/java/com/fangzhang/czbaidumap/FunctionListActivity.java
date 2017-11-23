@@ -22,7 +22,8 @@ public class FunctionListActivity extends ListActivity {
 
     private ClassAndName[] datas = {
         new ClassAndName("HelloBaiDuMapActivity",HelloBaiDuMapActivity.class),
-        new ClassAndName("地图图层测试",MapLayerActivity.class)
+        new ClassAndName("地图图层测试",MapLayerActivity.class),
+        new ClassAndName("圆形覆盖物测试",CircleOverlayActivity.class)
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
