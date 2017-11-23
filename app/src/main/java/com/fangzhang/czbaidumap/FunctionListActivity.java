@@ -21,7 +21,8 @@ public class FunctionListActivity extends ListActivity {
     private BroadcastReceiver receiver;
 
     private ClassAndName[] datas = {
-        new ClassAndName("HelloBaiDuMapActivity",HelloBaiDuMapActivity.class)
+        new ClassAndName("HelloBaiDuMapActivity",HelloBaiDuMapActivity.class),
+        new ClassAndName("地图图层测试",MapLayerActivity.class)
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {

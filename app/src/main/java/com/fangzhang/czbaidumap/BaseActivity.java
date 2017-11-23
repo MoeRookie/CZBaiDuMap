@@ -25,7 +25,7 @@ public abstract class BaseActivity extends Activity {
     /** 天安门坐标 */
     protected LatLng tamPos = new LatLng(39.915112,116.403963);
 
-    MapView mMapView;
+    protected MapView mMapView;
     protected BaiduMap mapController;
 
     @Override
