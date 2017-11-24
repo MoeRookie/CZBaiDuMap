@@ -1,6 +1,8 @@
 package com.fangzhang.czbaidumap;
 
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
@@ -16,6 +18,8 @@ import com.baidu.mapapi.model.LatLng;
  */
 
 public class MarkerOverlayActivity extends BaseActivity {
+    private View pop;
+    private TextView tvTitle;
     @Override
     protected void init() {
         initMarker();
@@ -23,19 +27,37 @@ public class MarkerOverlayActivity extends BaseActivity {
         mapController.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                View pop = View.inflate(MarkerOverlayActivity.this, R.layout.pop, null);
-                // 把View添加到什么样的布局中,就使用什么样的LayoutParams布局参数对象
-                MapViewLayoutParams layoutParams = new MapViewLayoutParams.Builder()
-                        .layoutMode(ELayoutMode.mapMode)     // 设置坐标类型为经纬度
-                        .position(marker.getPosition())      // 设置标志的位置
-                        .yOffset(-85)                        // 设置View向上移
-                        .build();
-                mMapView.addView(pop,layoutParams);
+                if (pop == null) {
+                    pop = View.inflate(MarkerOverlayActivity.this, R.layout.pop, null);
+                    tvTitle = pop.findViewById(R.id.tv_title);
+                    mMapView.addView(pop, createLayoutParams(marker.getPosition()));
+                } else {
+                    mMapView.updateViewLayout(pop,createLayoutParams(marker.getPosition()));
+                }
+                tvTitle.setText(marker.getTitle());
                 return true;
             }
         });
     }
 
+    /**
+     * 创建位置描述气泡的参数对象
+     * @param position
+     * @return
+     */
+    private ViewGroup.LayoutParams createLayoutParams(LatLng position) {
+        // 把View添加到什么样的布局中,就使用什么样的LayoutParams布局参数对象
+        MapViewLayoutParams layoutParams = new MapViewLayoutParams.Builder()
+                .layoutMode(ELayoutMode.mapMode)     // 设置坐标类型为经纬度
+                .position(position)                  // 设置标志的位置
+                .yOffset(-85)                        // 设置View向上移
+                .build();
+        return layoutParams;
+    }
+
+    /**
+     * 初始化标志覆盖物
+     */
     private void initMarker() {
         MarkerOptions options = new MarkerOptions();
         // 根据资源id创建bitmap的描述信息
