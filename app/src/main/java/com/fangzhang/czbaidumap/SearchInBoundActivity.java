@@ -3,6 +3,7 @@ package com.fangzhang.czbaidumap;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 import com.baidu.mapapi.overlayutil.PoiOverlay;
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiBoundSearchOption;
@@ -50,10 +51,18 @@ public class SearchInBoundActivity extends BaseActivity implements OnGetPoiSearc
             showToast("没有搜索到结果");
             return;
         }
-        PoiOverlay overlay = new PoiOverlay(mapController);
+        final PoiOverlay overlay = new PoiOverlay(mapController){
+            @Override
+            public boolean onPoiClick(int index) {
+                PoiInfo poiInfo = getPoiResult().getAllPoi().get(index);
+                showToast(poiInfo.name + "," + poiInfo.address);
+                return true;
+            }
+        };
         overlay.setData(poiResult);   // 把数据设置给覆盖物
         overlay.addToMap();           // 把所有的数据变成覆盖物添加到BaiDuMap
         overlay.zoomToSpan();         // 把所有的搜索结果在一个屏幕内显示出来
+        mapController.setOnMarkerClickListener(overlay);
     }
 
     /**
