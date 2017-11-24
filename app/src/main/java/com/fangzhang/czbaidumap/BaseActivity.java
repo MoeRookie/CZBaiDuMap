@@ -9,6 +9,7 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.model.LatLng;
+import com.fangzhang.czbaidumap.util.Util;
 
 /**
  * Created by Administrator on 2017/11/17.
@@ -73,5 +74,12 @@ public abstract class BaseActivity extends Activity {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mMapView.onPause();
+    }
+    /**
+     * 在屏幕中央显示一个Toast
+     * @param text
+     */
+    public void showToast(CharSequence text) {
+        Util.showToast(this, text);
     }
 }

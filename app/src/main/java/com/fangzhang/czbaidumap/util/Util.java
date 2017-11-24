@@ -12,7 +12,7 @@ public class Util {
      * 在屏幕中央显示一个Toast
      * @param text 要显示的内容
      */
-    public static void showToast(Context context,String text) {
+    public static void showToast(Context context,CharSequence text) {
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
         // 设置toast显示在屏幕中间
         toast.setGravity(Gravity.CENTER, 0, 0);
