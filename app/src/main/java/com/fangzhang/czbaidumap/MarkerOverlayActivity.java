@@ -23,21 +23,53 @@ public class MarkerOverlayActivity extends BaseActivity {
     @Override
     protected void init() {
         initMarker();
-        // 用户点击标志覆盖物显示一个泡泡
-        mapController.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                if (pop == null) {
-                    pop = View.inflate(MarkerOverlayActivity.this, R.layout.pop, null);
-                    tvTitle = pop.findViewById(R.id.tv_title);
-                    mMapView.addView(pop, createLayoutParams(marker.getPosition()));
-                } else {
-                    mMapView.updateViewLayout(pop,createLayoutParams(marker.getPosition()));
-                }
-                tvTitle.setText(marker.getTitle());
-                return true;
-            }
-        });
+        /**
+         * 设置用户点击标志覆盖物后显示位置描述的气泡
+         */
+        mapController.setOnMarkerClickListener(onMarkerClickListener);
+        /**
+         * 设置用户拖拽标志覆盖物时位置描述气泡跟随
+         */
+        mapController.setOnMarkerDragListener(onMarkerDragListener);
+    }
+    private BaiduMap.OnMarkerDragListener onMarkerDragListener = new BaiduMap.OnMarkerDragListener() {
+
+        @Override
+        public void onMarkerDragStart(Marker marker) {
+            tvTitle.setText(marker.getTitle());
+            mMapView.updateViewLayout(pop,createLayoutParams(marker.getPosition()));
+        }
+
+        @Override
+        public void onMarkerDrag(Marker marker) {
+            mMapView.updateViewLayout(pop,createLayoutParams(marker.getPosition()));
+        }
+
+        @Override
+        public void onMarkerDragEnd(Marker marker) {
+            mMapView.updateViewLayout(pop,createLayoutParams(marker.getPosition()));
+        }
+    };
+    private BaiduMap.OnMarkerClickListener onMarkerClickListener = new BaiduMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            onMarkerOperated(marker);
+            return true;
+        }
+    };
+    /**
+     * 当操作Marker覆盖物的操作被监听到之后的操作
+     * @param marker
+     */
+    private void onMarkerOperated(Marker marker) {
+        if (pop == null) {
+            pop = View.inflate(MarkerOverlayActivity.this, R.layout.pop, null);
+            tvTitle = pop.findViewById(R.id.tv_title);
+            mMapView.addView(pop, createLayoutParams(marker.getPosition()));
+        } else {
+            mMapView.updateViewLayout(pop,createLayoutParams(marker.getPosition()));
+        }
+        tvTitle.setText(marker.getTitle());
     }
 
     /**
