@@ -2,24 +2,17 @@ package com.fangzhang.czbaidumap;
 
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
-import com.baidu.mapapi.overlayutil.PoiOverlay;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiBoundSearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiResult;
-import com.baidu.mapapi.search.poi.PoiSearch;
 
 /**
  * Created by Administrator on 2017/11/24.
  */
 
-public class SearchInBoundActivity extends BaseActivity implements OnGetPoiSearchResultListener {
+public class SearchInBoundActivity extends PoiSearchBaseActivity{
+
     @Override
-    protected void init() {
-        PoiSearch poiSearch = PoiSearch.newInstance();
-        poiSearch.setOnGetPoiSearchResultListener(SearchInBoundActivity.this);
+    protected void initPoiSearch() {
         poiSearch.searchInBound(getSearchParams());
     }
 
@@ -39,30 +32,6 @@ public class SearchInBoundActivity extends BaseActivity implements OnGetPoiSearc
         option.bound(bounds);     // 指定搜索范围
         option.keyword("加油站");  // 指定搜索什么内容
         return option;
-    }
-
-    /**
-     * 获取兴趣点信息
-     * @param poiResult
-     */
-    @Override
-    public void onGetPoiResult(PoiResult poiResult) {
-        if (poiResult == null || poiResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            showToast("没有搜索到结果");
-            return;
-        }
-        final PoiOverlay overlay = new PoiOverlay(mapController){
-            @Override
-            public boolean onPoiClick(int index) {
-                PoiInfo poiInfo = getPoiResult().getAllPoi().get(index);
-                showToast(poiInfo.name + "," + poiInfo.address);
-                return true;
-            }
-        };
-        overlay.setData(poiResult);   // 把数据设置给覆盖物
-        overlay.addToMap();           // 把所有的数据变成覆盖物添加到BaiDuMap
-        overlay.zoomToSpan();         // 把所有的搜索结果在一个屏幕内显示出来
-        mapController.setOnMarkerClickListener(overlay);
     }
 
     /**
