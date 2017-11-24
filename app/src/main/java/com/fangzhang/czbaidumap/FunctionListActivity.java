@@ -25,7 +25,8 @@ public class FunctionListActivity extends ListActivity {
         new ClassAndName("地图图层测试",MapLayerActivity.class),
         new ClassAndName("圆形覆盖物测试",CircleOverlayActivity.class),
         new ClassAndName("文本覆盖物测试",TextOverlayActivity.class),
-        new ClassAndName("Marker覆盖物测试",MarkerOverlayActivity.class)
+        new ClassAndName("Marker覆盖物测试",MarkerOverlayActivity.class),
+        new ClassAndName("范围内搜索测试",SearchInBoundActivity.class)
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
