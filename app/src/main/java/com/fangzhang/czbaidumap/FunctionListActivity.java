@@ -30,7 +30,8 @@ public class FunctionListActivity extends ListActivity {
         new ClassAndName("城市内搜索覆盖物测试",SearchInCityActivity.class),
         new ClassAndName("周边搜索覆盖物测试",SearchNearByActivity.class),
         new ClassAndName("驾车路线搜索覆盖物测试",DrivingSearchActivity.class),
-        new ClassAndName("换乘路线搜索覆盖物测试",TransitSearchActivity.class)
+        new ClassAndName("换乘路线搜索覆盖物测试",TransitSearchActivity.class),
+        new ClassAndName("步行路线搜索覆盖物测试",WalkingSearchActivity.class)
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {

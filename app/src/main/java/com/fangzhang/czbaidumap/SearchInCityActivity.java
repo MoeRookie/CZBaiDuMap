@@ -56,9 +56,13 @@ public class SearchInCityActivity extends PoiSearchBaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_1) {
-            pageNum++;
-            poiSearch.searchInCity(getSearchParams());
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_1:
+                pageNum++;
+                poiSearch.searchInCity(getSearchParams());
+                break;
+            case KeyEvent.KEYCODE_BACK:
+                finish();
         }
         return true;
     }
