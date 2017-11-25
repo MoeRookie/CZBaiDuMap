@@ -1,8 +1,5 @@
 package com.fangzhang.czbaidumap;
 
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.model.LatLngBounds;
-import com.baidu.mapapi.search.poi.PoiBoundSearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 
@@ -19,9 +16,9 @@ public class SearchNearByActivity extends PoiSearchBaseActivity{
 
     private PoiNearbySearchOption getSearchParams() {
         PoiNearbySearchOption option = new PoiNearbySearchOption();
-        option.location(hmPos);
-        option.radius(1000);
-        option.keyword("厕所");
+        option.location(hmPos);   // 指定在那个位置搜索
+        option.radius(1000);      // 指定搜索范围
+        option.keyword("厕所");    // 指定搜索的内容
         return option;
     }
 
