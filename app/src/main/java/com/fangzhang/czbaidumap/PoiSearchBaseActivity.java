@@ -22,13 +22,22 @@ public abstract class PoiSearchBaseActivity extends BaseActivity implements OnGe
         overlay = new PoiOverlay(mapController){
             @Override
             public boolean onPoiClick(int index) {
-                PoiInfo poiInfo = getPoiResult().getAllPoi().get(index);
-                showToast(poiInfo.name + "," + poiInfo.address);
-                return true;
+                return PoiSearchBaseActivity.this.onPoiClick(index);
             }
         };
         mapController.setOnMarkerClickListener(overlay);
         initPoiSearch();
+    }
+
+    /**
+     * 生成这个方法,是为了让子类可以覆盖
+     * @param index
+     * @return
+     */
+    public boolean onPoiClick(int index) {
+        PoiInfo poiInfo = overlay.getPoiResult().getAllPoi().get(index);
+        showToast(poiInfo.name + "," + poiInfo.address);
+        return true;
     }
 
     /**
