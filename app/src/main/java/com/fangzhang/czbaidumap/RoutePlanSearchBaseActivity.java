@@ -8,9 +8,10 @@ import com.baidu.mapapi.search.route.RoutePlanSearch;
  */
 
 public abstract class RoutePlanSearchBaseActivity extends BaseActivity implements OnGetRoutePlanResultListener {
+    protected RoutePlanSearch routePlanSearch;
     @Override
     protected void init() {
-        RoutePlanSearch routePlanSearch = RoutePlanSearch.newInstance();
+        routePlanSearch = RoutePlanSearch.newInstance();
         routePlanSearch.setOnGetRoutePlanResultListener(RoutePlanSearchBaseActivity.this);
         initRoutePlanSearch();
     }
