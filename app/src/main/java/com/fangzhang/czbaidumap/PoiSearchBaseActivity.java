@@ -19,7 +19,6 @@ public abstract class PoiSearchBaseActivity extends BaseActivity implements OnGe
         // 因为其它搜索也需要这个实例，所以放在父类初始，这样的话子类就不需要再实例化
         poiSearch = PoiSearch.newInstance();
         poiSearch.setOnGetPoiSearchResultListener(PoiSearchBaseActivity.this);
-        initPoiSearch();
         overlay = new PoiOverlay(mapController){
             @Override
             public boolean onPoiClick(int index) {
@@ -28,6 +27,8 @@ public abstract class PoiSearchBaseActivity extends BaseActivity implements OnGe
                 return true;
             }
         };
+        mapController.setOnMarkerClickListener(overlay);
+        initPoiSearch();
     }
 
     /**
@@ -49,6 +50,5 @@ public abstract class PoiSearchBaseActivity extends BaseActivity implements OnGe
         overlay.setData(poiResult);   // 把数据设置给覆盖物
         overlay.addToMap();           // 把所有的数据变成覆盖物添加到BaiDuMap
         overlay.zoomToSpan();         // 把所有的搜索结果在一个屏幕内显示出来
-        mapController.setOnMarkerClickListener(overlay);
     }
 }
