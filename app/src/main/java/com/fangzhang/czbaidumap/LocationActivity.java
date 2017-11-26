@@ -7,6 +7,9 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 
 import java.util.List;
@@ -101,7 +104,20 @@ public class LocationActivity extends BaseActivity {
         //注册监听函数
         mLocationClient.registerLocationListener(myListener);
         initLocation();
+        mapController.setMyLocationEnabled(true);	// 开启定位图层
+        setMyLocationConfigeration(MyLocationConfiguration.LocationMode.COMPASS);
         mLocationClient.start();	// 开始定位
+    }
+
+    /**
+     * 设置定位图层配置
+     * @param locationMode
+     */
+    private void setMyLocationConfigeration(MyLocationConfiguration.LocationMode locationMode) {
+        boolean enableDirection = true;	// 设置允许显示方向
+        BitmapDescriptor customMarker = BitmapDescriptorFactory.fromResource(R.drawable.icon_geo);	// 自定义定位的图标
+        MyLocationConfiguration config = new MyLocationConfiguration(locationMode, enableDirection, customMarker);
+        mapController.setMyLocationConfigeration(config);
     }
 
     @Override
