@@ -50,5 +50,7 @@ http://naotu.baidu.com/file/1079c11d69f216a8ac1a2af275e5d03d?token=2117f12c6bea2
         <activity android:name=".DrivingSearchActivity"/>
         <activity android:name=".TransitSearchActivity"/>
         <activity android:name=".WalkingSearchActivity"/>
+        <activity android:name=".LocationActivity"/>
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
     </application>
 </manifest>
